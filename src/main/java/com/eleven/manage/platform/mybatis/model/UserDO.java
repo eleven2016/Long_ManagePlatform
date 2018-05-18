@@ -1,19 +1,22 @@
 package com.eleven.manage.platform.mybatis.model;
 
 import lombok.Data;
-
-import java.util.Date;
-
 /**
- * 用户实体类
  * @author ywl
- * @date 2018/5/16
- **/
+ * @date 2018/05/18
+ */
 @Data
-public class UserDO {
+public class UserDO{
     private Integer id;
 
     private String userName;
 
-    private Date createTime;
+    private String account;
+
+    private String password;
+
+    private java.util.Date createTime;
+
+    private java.util.Date modifyTime;
+
 }
