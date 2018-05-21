@@ -1,11 +1,15 @@
 package com.eleven.manage.platform.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.eleven.manage.platform.mybatis.dao.UserDao;
 import com.eleven.manage.platform.mybatis.model.UserDO;
 import com.eleven.manage.platform.service.UserService;
 import com.github.pagehelper.PageHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -15,11 +19,16 @@ import java.util.List;
  **/
 @Service(value = "userService")
 public class UserServiceImpl implements UserService {
+
+    private static Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+
     @Autowired
-    private UserDao userDao;//这里会报错，但是并不会影响
+    private UserDao userDao;
 
     @Override
+    @Transactional
     public int addUser(UserDO user) {
+        logger.info("新增参数:"+ JSON.toJSONString(user));
         return userDao.insert(user);
     }
 
@@ -33,6 +42,7 @@ public class UserServiceImpl implements UserService {
     public List<UserDO> findAllUser(int pageNum, int pageSize) {
         //将参数传给这个方法就可以实现物理分页了，非常简单。
         PageHelper.startPage(pageNum, pageSize);
-        return userDao.selectUsers();
+        UserDO param = new UserDO();
+        return userDao.selectByCondition(param);
     }
 }

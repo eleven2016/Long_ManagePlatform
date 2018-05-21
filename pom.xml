@@ -112,6 +112,12 @@
 			<artifactId>lombok</artifactId>
 			<version>1.16.20</version>
 		</dependency>
+
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.47</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -130,7 +136,7 @@
 				</executions>
 				<configuration>
 					<!-- generator 工具配置文件的位置 -->
-					<configurationFile>src/main/resources/mybatis-mapper/generatorConfig.xml</configurationFile>
+					<configurationFile>src/test/backupfile/generatorConfig.xml</configurationFile>
 					<verbose>true</verbose>
 					<overwrite>true</overwrite>
 				</configuration>

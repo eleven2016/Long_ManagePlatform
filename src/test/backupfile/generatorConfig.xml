@@ -47,7 +47,6 @@
         <javaModelGenerator targetPackage="${model_package}" targetProject="${project}" >
             <property name="enableSubPackages" value="false"/>
             <property name="trimStrings" value="true"/>
-            <property name=""></property>
         </javaModelGenerator>
         <!-- 生成mapxml文件 -->
         <sqlMapGenerator targetPackage="mappers" targetProject="${mapper_location}" >
