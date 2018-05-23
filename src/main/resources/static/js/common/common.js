@@ -68,6 +68,10 @@ $(document).ready(function () {
                         }
                     ]
                 }]
+            },
+            clickMenu:function(subItem){
+                $("#operateContent").
+                console.log(subItem)
             }
         }
     });

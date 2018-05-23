@@ -10,13 +10,13 @@
                         text-color="#fff"
                         active-text-color="#ffd04b">
                     <el-submenu v-for="item in menuModel.menus" :key="item.id" :index="item.id">
-                        <template slot="menu" >
+                        <template slot="title" >
                             <i class="el-icon-menu"></i>
                             <span>{{item.name}}</span>
                         </template>
                         <el-menu-item-group>
-                            <template slot="menu">{{item.name}}</template>
-                            <el-menu-item v-for="subItem in item.subMenus" :key="subItem.id" :index="subItem.id">{{subItem.name}}</el-menu-item>
+                            <template slot="title">{{item.name}}</template>
+                            <el-menu-item v-for="subItem in item.subMenus" :key="subItem.id" :index="subItem.id" @click="clickMenu(subItem)">{{subItem.name}}</el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
                 </el-menu>

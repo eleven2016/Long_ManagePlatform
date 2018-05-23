@@ -20,7 +20,7 @@ body{ margin:0}
 .container-main-layout{
     width:80%;
     float: right;
-    min-height: 900px;
+    min-height: 850px;
     background-color: white;
 }
 .container-footer{
