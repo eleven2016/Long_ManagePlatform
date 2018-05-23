@@ -1,6 +1,8 @@
 #服务器配置
 server:
   port: 8080
+  servlet:
+    context-path: /manageplatform
 
 #数据库配置
 spring:
@@ -25,18 +27,17 @@ spring:
      poolPreparedStatements: true
      maxPoolPreparedStatementPerConnectionSize: 20
      maxOpenPreparedStatements: 20
-  #freemarker配置
-  freemarker:
-    allow-request-override: false
+  #thymeleaf
+  thymeleaf:
     cache: false
-    charset: utf-8
     check-template-location: true
-    content-type: text/html
-    expose-request-attributes: false
-    expose-session-attributes: false
-    expose-spring-macro-helpers: false
-    suffix: .ftl
-    template-loader-path: ["classpath:/templates/"]
+    encoding: UTF-8
+    prefix: classpath:/templates/
+    suffix: .html
+    enable-spring-el-compiler: true
+    mode: HTML5
+#  mvc:
+#    static-path-pattern: /images/**
 
 
 #mybatis配置

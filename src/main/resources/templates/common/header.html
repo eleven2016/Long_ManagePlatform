@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body >
+<div id="header" th:fragment="headerTemplate" class="container-header">
+    <div class="container-header-div1">
+        <span class="container-header-div1-span">管理控制系统</span>
+    </div>
+    <div class="container-header-div2">
+        <el-dropdown>
+                  <span class="el-dropdown-link container-header-div2-span">
+                    登录用户<i class="el-icon-arrow-down el-icon--right"></i>
+                  </span>
+                <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item>配置</el-dropdown-item>
+                    <el-dropdown-item>退出</el-dropdown-item>
+                </el-dropdown-menu>
+        </el-dropdown>
+    </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<html>
+<head>
+    <title>管理平台</title>
+</head>
+<link rel="stylesheet" href="${request.contextPath}/css/login/login.css" type="text/css" />
+<link rel="stylesheet" href="${request.contextPath}/css/common/element-ui.css">
+<body>
+<div id = "loginForm" class="div-login">
+    <el-form ref="loginModel" :model="loginModel" :rules="modelRules" label-width = "100px" class="div-login-form">
+        <el-form-item label="账号：" prop="userName">
+            <el-input v-model="loginModel.userName"></el-input>
+        </el-form-item>
+        <el-form-item label="密码：" prop="password">
+            <el-input type="password" v-model="loginModel.password"></el-input>
+        </el-form-item>
+        <el-form-item>
+            <el-button type="primary" @click="onSubmit">登录</el-button>
+            <a href="#">忘记密码</a>
+        </el-form-item>
+    </el-form>
+
+</div>
+</body>
+<script src="${request.contextPath}/js/common/vue.js"></script>
+<script src="${request.contextPath}/js/common/jquery-3.3.1.min.js"></script>
+<script src="${request.contextPath}/js/common/element-ui.js"></script>
+<script>
+    var loginVue = new Vue({
+        el: '#loginForm',
+        data: {
+            loginModel:{
+                userName:"",
+                password:""
+            },
+            modelRules:{
+                userName:[
+                    {required: true,message:"请输入账户名",trigger:'blur'},
+                    {max:20,message:"账户最大长度20个字符",trigger:'blur'},
+                ],
+                password:[
+                    {required: true,message:"请输入密码",trigger:'blur'}
+                ]
+            }
+        },
+        methods:{
+            onSubmit: function(){
+                this.$refs['loginModel'].validate((valid) => {
+                    if (valid) {
+                        $.ajax({
+                            type: "POST",
+                            url: "login/checkLogin",
+                            contentType:"application/json",
+                            data: JSON.stringify(loginVue.loginModel),
+                            success: function(result){
+                                if(result.success){
+                                    window.location.href="login/loginSuccess";
+                                }else{
+                                    this.$message.error(result.errorMessage);
+                                }
+                            }
+                        });
+                    } else {
+                        console.log('error submit!!');
+                        return false;
+                    }
+                });
+            }
+        }
+    })
+</script>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>管理平台</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" th:href="@{/css/common/element-ui.css}" />
+        <link rel="stylesheet" th:href="@{/css/common/common.css}" />
+        <script type="text/javascript" th:src="@{/js/common/jquery-3.3.1.min.js}"></script>
+        <script type="text/javascript" th:src="@{/js/common/vue.js}"></script>
+    </head>
+    <body >
+        <div id="mainContainer" class="container">
+            <div th:replace="~{common/header::#header}"></div>
+            <div th:replace="~{common/sidebar::#menu}"></div>
+            <div th:replace="~{common/mainLayout::#mainLayout}"></div>
+            <div th:replace="~{common/footer::#footer}"></div>
+        </div>
+    </body>
+    <script type="text/javascript" th:src="@{/js/common/element-ui.js}"></script>
+    <script type="text/javascript" th:src="@{/js/common/common.js}"></script>
+</html>

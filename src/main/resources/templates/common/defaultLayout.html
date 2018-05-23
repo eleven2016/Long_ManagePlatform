@@ -1,0 +1,31 @@
+<#macro layout>
+<html>
+<head>
+    <title>管理平台</title>
+    <link rel="stylesheet" href="${request.contextPath}/css/common/element-ui.css">
+    <link rel="stylesheet" href="${request.contextPath}/css/common/common.css">
+    <script src="${request.contextPath}/js/common/jquery-3.3.1.min.js"></script>
+</head>
+<body >
+    <div class="layout">
+        <div class="layout-header">
+            <#include "header.html">
+        </div>
+
+        <div class="layout-sidebar">
+            <#include "sidebar.html">
+        </div>
+
+    <#-- 在这里嵌入main content -->
+        <div class="layout-mainBoard">
+            <#nested>
+        </div>
+        <div class="layout-footer">
+            <#include "footer.html">
+        </div>
+    </div>
+</body>
+<script src="${request.contextPath}/js/common/vue.js"></script>
+<script src="${request.contextPath}/js/common/element-ui.js"></script>
+</html>
+</#macro>

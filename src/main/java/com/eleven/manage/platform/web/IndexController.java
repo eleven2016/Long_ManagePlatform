@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
+ * 测试
  * @author ywl
  * @date 2018/5/16
  **/
@@ -24,5 +25,14 @@ public class IndexController {
     @ResponseBody
     public String jsonTest(){
         return "{id:1}";
+    }
+
+    /**
+     * 跳转homepage
+     * @return
+     */
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String homePage(){
+        return "common/mainboard";
     }
 }
