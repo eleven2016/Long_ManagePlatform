@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eleven.manage.platform.mybatis.dao.MenuDao">
+    <resultMap id="MenuResultMap" type="com.eleven.manage.platform.mybatis.model.MenuDO">
+        <result column="id" jdbcType="INTEGER" javaType="Integer" property="id" />
+        <result column="menu_name" jdbcType="VARCHAR" javaType="String" property="menuName" />
+        <result column="p_id" jdbcType="INTEGER"  javaType="Integer" property="pid" />
+        <result column="level" jdbcType="INTEGER" javaType="Integer" property="level" />
+        <result column="menu_url" jdbcType="VARCHAR" javaType="String" property="menuUrl" />
+        <result column="modify_time" jdbcType="TIMESTAMP" javaType="java.util.Date" property="modifyTime" />
+    </resultMap>
+
+    <select id="selectById" parameterType="com.eleven.manage.platform.mybatis.model.MenuDO" resultMap="MenuResultMap">
+        select id, menu_name, p_id, `level`, menu_url, modify_time
+        from menu
+        where id = #{id}
+    </select>
+    <select id="selectByCondition" parameterType="com.eleven.manage.platform.mybatis.model.MenuDO" resultMap="MenuResultMap">
+        select id, menu_name, p_id, `level`, menu_url, modify_time
+        from menu
+        <where>
+            <if test="menuName != null and menuName!=''">
+                menu_name like concat(#{menuName},'%')
+            </if>
+            <if test="pid != null ">
+                p_id =#{pid}
+            </if>
+        </where>
+    </select>
+    <insert id="insert" parameterType="com.eleven.manage.platform.mybatis.model.MenuDO">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into menu (menu_name,
+        <if test="pid != null ">
+            p_id,
+        </if>
+        <if test="level != null ">
+            `level`,
+        </if>
+        <if test="menuUrl != null ">
+            menu_url,
+        </if>
+        modify_time)
+        values (#{menuName},
+        <if test="pid != null ">
+            #{pid},
+        </if>
+        <if test="level != null ">
+            #{level},
+        </if>
+        <if test="menuUrl != null ">
+            #{menuUrl},
+        </if>
+        CURRENT_TIMESTAMP)
+    </insert>
+    <update id="update" parameterType="com.eleven.manage.platform.mybatis.model.MenuDO">
+        update menu
+        set
+        <if test="menuName != null and menuName!=''">
+            menu_name = #{menuName},
+        </if>
+        <if test="pid != null">
+            p_id = #{pid},
+        </if>
+        <if test="level != null">
+            `level` = #{level},
+        </if>
+        <if test="menuUrl != null">
+            menu_url = #{menuUrl},
+        </if>
+        modify_time = CURRENT_TIMESTAMP
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        delete from menu
+        where id = #{id}
+    </delete>
+
+</mapper>

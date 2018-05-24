@@ -1,8 +1,5 @@
 package com.eleven.manage.platform.web;
 
-import com.eleven.manage.platform.mybatis.model.UserDO;
-import com.eleven.manage.platform.service.UserService;
-import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +8,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.eleven.manage.platform.dto.UserDTO;
+import com.eleven.manage.platform.service.UserService;
+import com.github.pagehelper.PageHelper;
 
 /**
  * user controller
@@ -25,7 +26,7 @@ public class UserController {
 
     @ResponseBody
     @PostMapping("/add")
-    public int addUser(@RequestBody UserDO user){
+    public int addUser(@RequestBody UserDTO user){
         return userService.addUser(user);
     }
 
@@ -35,6 +36,6 @@ public class UserController {
             @RequestParam(name = "pageSize", required = false, defaultValue = "10") int pageSize){
         //开始分页
         PageHelper.startPage(pageNum,pageSize);
-        return userService.findAllUser(pageNum,pageSize);
+        return userService.findByPage(null,pageNum,pageSize);
     }
 }

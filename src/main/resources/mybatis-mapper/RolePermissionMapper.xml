@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eleven.manage.platform.mybatis.dao.RolePermissionMapperDao">
+    <resultMap id="RolePermissionMapperResultMap" type="com.eleven.manage.platform.mybatis.model.RolePermissionMapperDO">
+        <result column="id" jdbcType="INTEGER" javaType="Integer" property="id" />
+        <result column="role_id" jdbcType="INTEGER"  javaType="Integer" property="roleId" />
+        <result column="permission_id" jdbcType="INTEGER" javaType="Integer" property="permissionId" />
+    </resultMap>
+
+    <select id="selectById" parameterType="com.eleven.manage.platform.mybatis.model.RolePermissionMapperDO" resultMap="RolePermissionMapperResultMap">
+        select id, role_id,permission_id
+        from role_permission_mapper
+        where id = #{id}
+    </select>
+    <select id="selectByCondition" parameterType="com.eleven.manage.platform.mybatis.model.RolePermissionMapperDO" resultMap="RolePermissionMapperResultMap">
+        select id, role_id,permission_id
+        from role_permission_mapper
+        <where>
+            <if test="roleId != null ">
+                role_id =#{roleId}
+            </if>
+            <if test="permissionId != null ">
+                permission_id =#{permissionId}
+            </if>
+        </where>
+    </select>
+    <insert id="insert" parameterType="com.eleven.manage.platform.mybatis.model.RolePermissionMapperDO">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into role_permission_mapper (role_id,permission_id)
+        values (#{roleId}, #{permissionId})
+    </insert>
+    <update id="update" parameterType="com.eleven.manage.platform.mybatis.model.RolePermissionMapperDO">
+        update role_permission_mapper
+        set
+            role_id= #{roleId},
+            permission_id= #{permissionId}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        delete from role_permission_mapper
+        where id = #{id}
+    </delete>
+
+</mapper>

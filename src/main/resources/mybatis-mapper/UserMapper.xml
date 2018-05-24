@@ -18,6 +18,11 @@
     <select id="selectByCondition" parameterType="com.eleven.manage.platform.mybatis.model.UserDO" resultMap="UserResultMap">
         select id, user_name, account, `password`, create_time, modify_time
         from user
+        <where>
+            <if test="userName != null and userName!=''">
+                user_name like concat(#{userName},'%')
+            </if>
+        </where>
     </select>
     <insert id="insert" parameterType="com.eleven.manage.platform.mybatis.model.UserDO">
         <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">

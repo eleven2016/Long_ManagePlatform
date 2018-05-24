@@ -1,6 +1,6 @@
 package com.eleven.manage.platform.service;
 
-import com.eleven.manage.platform.mybatis.model.UserDO;
+import com.eleven.manage.platform.dto.UserDTO;
 
 import java.util.List;
 
@@ -9,7 +9,39 @@ import java.util.List;
  * @date 2018/5/16
  **/
 public interface UserService {
-    int addUser(UserDO user);
+    /**
+     * 添加用户
+     * @param userDTO
+     * @return
+     */
+    int addUser(UserDTO userDTO);
 
-    List<UserDO> findAllUser(int pageNum, int pageSize);
+    /**
+     * 更新用户
+     * @param userDTO
+     * @return
+     */
+    int updateUser(UserDTO userDTO);
+
+    /**
+     * 删除用户
+     * @param userDTO
+     * @return
+     */
+    int deleteUser(UserDTO userDTO);
+
+    /**
+     * 按条件分页查询用户
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    List<UserDTO> findByPage(UserDTO userDTO, int pageNum, int pageSize);
+
+    /**
+     * 按条件查询用户
+     * @param userDTO
+     * @return
+     */
+    List<UserDTO> findByCondition(UserDTO userDTO);
 }
