@@ -3,6 +3,7 @@ package com.eleven.manage.platform.utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
+import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
@@ -33,5 +34,14 @@ public class GenerateListResultUtil<S,T> {
                 }).collect(Collectors.toList());
         }
         return result;
+    }
+    public T generateOne(List<S> source,Class<T> clazz){
+        List<T> result = this.generate(source,clazz);
+        if(CollectionUtils.isEmpty(result)){
+            return null;
+        }else {
+            Assert.state(result.size() == 1,"查询时出现重复数据!");
+            return result.get(0);
+        }
     }
 }

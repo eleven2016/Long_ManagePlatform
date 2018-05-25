@@ -10,7 +10,7 @@
         <result column="modify_time" jdbcType="TIMESTAMP" javaType="java.util.Date" property="modifyTime" />
     </resultMap>
 
-    <select id="selectById" parameterType="com.eleven.manage.platform.mybatis.model.MenuDO" resultMap="MenuResultMap">
+    <select id="selectById" parameterType="com.eleven.manage.platform.mybatis.model.MenuDO" resultMap="MenuResultMap" >
         select id, menu_name, p_id, `level`, menu_url, modify_time
         from menu
         where id = #{id}

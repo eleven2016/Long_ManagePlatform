@@ -4,18 +4,52 @@ import com.eleven.manage.platform.dto.MenuDTO;
 
 import java.util.List;
 
-/**
+/** 菜单服务
  * @author ywl
- * @date 2018/05/24
+ * @date 2018/05/25
  **/
 public interface MenuService {
+    /**
+     * 删除
+     * @param id
+     * @return
+     */
     int deleteById(java.lang.Integer id);
 
+    /**
+     * 更新
+     * @param param
+     * @return
+     */
     int update(MenuDTO param);
 
+    /**
+     * 新增
+     * @param param
+     * @return
+     */
     int insert(MenuDTO param);
 
-    List<MenuDTO> selectById(MenuDTO param);
+    /**
+     * 根据ID查询
+     * @param param
+     * @return
+     */
+    MenuDTO selectById(MenuDTO param);
 
+    /**
+     * 根据条件查询
+     * @param param
+     * @return
+     */
     List<MenuDTO> selectByCondition(MenuDTO param);
+
+    /**
+     * 分页查询
+     * @param param
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    List<MenuDTO> selectByPage(MenuDTO param, int pageNum, int pageSize);
 }

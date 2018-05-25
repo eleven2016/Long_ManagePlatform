@@ -9,14 +9,14 @@ import java.util.List;
  */
 @Service("permissionDao")
 public interface PermissionDao{
-    public int deleteById (java.lang.Integer id);
+    int deleteById (java.lang.Integer id);
 
-    public int update (PermissionDO param);
+    int update (PermissionDO param);
 
-    public int insert (PermissionDO param);
+    int insert (PermissionDO param);
 
-    public List<PermissionDO> selectById(PermissionDO param);
+    List<PermissionDO> selectById(PermissionDO param);
 
-    public List<PermissionDO> selectByCondition(PermissionDO param);
+    List<PermissionDO> selectByCondition(PermissionDO param);
 
 }
