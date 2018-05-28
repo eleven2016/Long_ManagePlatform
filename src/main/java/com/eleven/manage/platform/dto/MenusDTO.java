@@ -1,16 +1,12 @@
 package com.eleven.manage.platform.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Data;
-
-import java.util.Date;
+import java.util.List;
 
 /**
  * @author ywl
- * @date 2018/05/24
- */
-@Data
-public class MenuDTO{
+ * @date 2018/5/28
+ **/
+public class MenusDTO {
     private Integer id;
 
     private String menuName;
@@ -21,8 +17,7 @@ public class MenuDTO{
 
     private String menuUrl;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
-    private java.util.Date modifyTime;
+    private List<MenusDTO> subMenus;
 
     public Integer getId() {
         return id;
@@ -64,11 +59,11 @@ public class MenuDTO{
         this.menuUrl = menuUrl;
     }
 
-    public Date getModifyTime() {
-        return modifyTime;
+    public List<MenusDTO> getSubMenus() {
+        return subMenus;
     }
 
-    public void setModifyTime(Date modifyTime) {
-        this.modifyTime = modifyTime;
+    public void setSubMenus(List<MenusDTO> subMenus) {
+        this.subMenus = subMenus;
     }
 }

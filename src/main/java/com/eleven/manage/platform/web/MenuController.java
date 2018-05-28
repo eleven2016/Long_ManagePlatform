@@ -1,6 +1,7 @@
 package com.eleven.manage.platform.web;
 
 import com.alibaba.fastjson.JSON;
+import com.eleven.manage.platform.ModelUtils.MenuUtil;
 import com.eleven.manage.platform.dto.MenuDTO;
 import com.eleven.manage.platform.dto.ResponseDTO;
 import com.eleven.manage.platform.service.MenuService;
@@ -84,12 +85,33 @@ public class MenuController {
      */
     @PostMapping("/queryByPage")
     @ResponseBody
-    public ResponseDTO queryByPage(@RequestBody MenuDTO menuDTO,@RequestParam(name = "pageNum", required = false, defaultValue = "1")int pageNum,
+    public ResponseDTO queryByPage(@RequestBody(required = false) MenuDTO menuDTO,@RequestParam(name = "pageNum", required = false, defaultValue = "1")int pageNum,
                                    @RequestParam(name = "pageSize", required = false, defaultValue = "10") int pageSize){
         ResponseDTO result =new ResponseDTO();
         try{
             List<MenuDTO> queryResult = menuService.selectByPage(menuDTO,pageNum,pageSize);
             result.setData(queryResult);
+            result.setSuccess(true);
+        }catch (IllegalArgumentException e){
+            result.setSuccess(false);
+            result.setErrorMessage(e.getMessage());
+        }catch (Exception e){
+            result.setSuccess(false);
+        }
+        return result;
+    }
+
+    /**
+     * 组织菜单
+     * @return
+     */
+    @PostMapping("/generateMenus")
+    @ResponseBody
+    public ResponseDTO generateMenus(){
+        ResponseDTO result =new ResponseDTO();
+        try{
+            List<MenuDTO> queryResult = menuService.selectByCondition(null);
+            result.setData(MenuUtil.generateMenus(queryResult));
             result.setSuccess(true);
         }catch (IllegalArgumentException e){
             result.setSuccess(false);

@@ -22,7 +22,7 @@ public class GenerateListResultUtil<S,T> {
     public List<T> generate(List<S> source,Class<T> clazz){
         List<T> result =new ArrayList<>();
         if(!CollectionUtils.isEmpty(source)){
-                source.stream().map(t->{
+            result = source.stream().map(t->{
                     T target = null;
                     try{
                         target =clazz.newInstance();

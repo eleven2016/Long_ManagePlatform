@@ -1,11 +1,14 @@
 package com.eleven.manage.platform.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.eleven.manage.platform.dto.MenuDTO;
 import com.eleven.manage.platform.mybatis.dao.MenuDao;
 import com.eleven.manage.platform.mybatis.model.MenuDO;
 import com.eleven.manage.platform.service.MenuService;
 import com.eleven.manage.platform.utils.GenerateListResultUtil;
 import com.github.pagehelper.PageHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +23,9 @@ import java.util.List;
  **/
 @Service("menuService")
 public class MenuServiceImpl implements MenuService {
+
+    private static Logger logger = LoggerFactory.getLogger(MenuServiceImpl.class);
+
     GenerateListResultUtil<MenuDO, MenuDTO> generateListResultUtil =new GenerateListResultUtil<>();
     @Autowired
     private MenuDao menuDao;
@@ -60,9 +66,10 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public List<MenuDTO> selectByCondition(MenuDTO param) {
-        Assert.notNull(param,"参数不能为空!");
         MenuDO menuDO =new MenuDO();
-        BeanUtils.copyProperties(param,menuDO);
+        if( null != param){
+            BeanUtils.copyProperties(param,menuDO);
+        }
         List<MenuDO> queryResult = menuDao.selectByCondition(menuDO);
         List<MenuDTO> result = generateListResultUtil.generate(queryResult,MenuDTO.class);
         return result;
@@ -70,12 +77,14 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public List<MenuDTO> selectByPage(MenuDTO param, int pageNum, int pageSize) {
-        Assert.notNull(param,"参数不能为空!");
         MenuDO menuDO =new MenuDO();
-        BeanUtils.copyProperties(param,menuDO);
+        if( null != param){
+            BeanUtils.copyProperties(param,menuDO);
+        }
         PageHelper.startPage(pageNum, pageSize);
         List<MenuDO> queryResult = menuDao.selectByCondition(menuDO);
         List<MenuDTO> result = generateListResultUtil.generate(queryResult,MenuDTO.class);
+        logger.info("分页查询结果"+ JSON.toJSONString(result));
         return result;
     }
 }
