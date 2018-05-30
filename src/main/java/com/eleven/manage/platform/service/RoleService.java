@@ -1,5 +1,6 @@
 package com.eleven.manage.platform.service;
 
+import com.eleven.manage.platform.dto.PageResponseDTO;
 import com.eleven.manage.platform.dto.RoleDTO;
 
 import java.util.List;
@@ -43,4 +44,13 @@ public interface RoleService {
      * @return
      */
     List<RoleDTO> selectByCondition(RoleDTO param);
+
+    /**
+     * 分页查询
+     * @param param
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    PageResponseDTO selectByPage(RoleDTO param, int pageNum, int pageSize);
 }

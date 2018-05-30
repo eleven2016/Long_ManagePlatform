@@ -1,10 +1,13 @@
 package com.eleven.manage.platform.service.impl;
 
+import com.eleven.manage.platform.dto.PageResponseDTO;
 import com.eleven.manage.platform.dto.RoleDTO;
 import com.eleven.manage.platform.mybatis.dao.RoleDao;
 import com.eleven.manage.platform.mybatis.model.RoleDO;
 import com.eleven.manage.platform.service.RoleService;
 import com.eleven.manage.platform.utils.GenerateListResultUtil;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -65,6 +68,18 @@ public class RoleServiceImpl implements RoleService {
         BeanUtils.copyProperties(param,menuDO);
         List<RoleDO> queryResult = roleDao.selectByCondition(menuDO);
         List<RoleDTO> result = generateListResultUtil.generate(queryResult,RoleDTO.class);
+        return result;
+    }
+
+    @Override
+    public PageResponseDTO selectByPage(RoleDTO param, int pageNum, int pageSize) {
+        RoleDO roleDO =new RoleDO();
+        if( null != param){
+            BeanUtils.copyProperties(param,roleDO);
+        }
+        Page<RoleDO> doPage = PageHelper.startPage(pageNum, pageSize);
+        roleDao.selectByCondition(roleDO);
+        PageResponseDTO result = generateListResultUtil.generatePage(doPage,RoleDTO.class);
         return result;
     }
 }

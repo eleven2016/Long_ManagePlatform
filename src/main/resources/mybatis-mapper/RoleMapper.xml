@@ -31,9 +31,8 @@
     <update id="update" parameterType="com.eleven.manage.platform.mybatis.model.RoleDO">
         update role
         set
-        <if test="roleName != null and roleName!=''">
-            role_name = #{roleName},
-        </if>
+        role_name = #{roleName},
+        modify_time = CURRENT_TIMESTAMP
         where id = #{id,jdbcType=INTEGER}
     </update>
     <delete id="deleteById" parameterType="java.lang.Integer">

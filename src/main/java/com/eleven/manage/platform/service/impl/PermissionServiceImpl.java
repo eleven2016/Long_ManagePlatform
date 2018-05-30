@@ -1,10 +1,13 @@
 package com.eleven.manage.platform.service.impl;
 
+import com.eleven.manage.platform.dto.PageResponseDTO;
 import com.eleven.manage.platform.dto.PermissionDTO;
 import com.eleven.manage.platform.mybatis.dao.PermissionDao;
 import com.eleven.manage.platform.mybatis.model.PermissionDO;
 import com.eleven.manage.platform.service.PermissionService;
 import com.eleven.manage.platform.utils.GenerateListResultUtil;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,6 +66,18 @@ public class PermissionServiceImpl implements PermissionService {
         BeanUtils.copyProperties(param,permissionDO);
         List<PermissionDO> queryResult = permissionDao.selectByCondition(permissionDO);
         List<PermissionDTO> result = generateListResultUtil.generate(queryResult,PermissionDTO.class);
+        return result;
+    }
+
+    @Override
+    public PageResponseDTO selectByPage(PermissionDTO param, int pageNum, int pageSize) {
+        PermissionDO permissionDO =new PermissionDO();
+        if( null != param){
+            BeanUtils.copyProperties(param,permissionDO);
+        }
+        Page<PermissionDO> doPage = PageHelper.startPage(pageNum, pageSize);
+        permissionDao.selectByCondition(permissionDO);
+        PageResponseDTO result = generateListResultUtil.generatePage(doPage,PermissionDTO.class);
         return result;
     }
 }

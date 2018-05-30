@@ -10,6 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * menu控制器
@@ -43,10 +46,14 @@ public class MenuController {
     public ResponseDTO addMenu(@RequestBody MenuDTO menuDTO){
         logger.info("添加菜单参数:"+ JSON.toJSONString(menuDTO));
         ResponseDTO result =new ResponseDTO();
+
         try{
+            Assert.isTrue(null != menuDTO,"参数不能为空!");
+            Assert.hasText( menuDTO.getMenuName(),"参数菜单名称不能为空!");
             if(null != menuDTO.getId() && 0 != menuDTO.getId()){
                 menuService.update(menuDTO);
             }else{
+                Assert.isTrue(!this.isDuplicate(menuDTO.getMenuName()),"该菜单已经存在!");
                 menuService.insert(menuDTO);
             }
             result.setSuccess(true);
@@ -80,7 +87,7 @@ public class MenuController {
         return result;
     }
     /**
-     * 查询所有菜单
+     * 分页查询菜单
      * @param menuDTO
      * @return
      */
@@ -163,5 +170,26 @@ public class MenuController {
             result.setSuccess(false);
         }
         return result;
+    }
+
+    /**
+     * 校验重复性
+     * @param menuName
+     * @return
+     */
+    private boolean isDuplicate(String menuName){
+        MenuDTO param=new MenuDTO();
+        param.setMenuName(menuName);
+        List<MenuDTO> menuDTOS = menuService.selectByCondition(param);
+        if(CollectionUtils.isEmpty(menuDTOS)){
+            return false;
+        }else{
+            Optional<MenuDTO> duplicate =menuDTOS.stream().filter(t->menuName.equals(t.getMenuName())).findFirst();
+            if(duplicate.isPresent()){
+                return true;
+            }else{
+                return false;
+            }
+        }
     }
 }

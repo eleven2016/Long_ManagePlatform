@@ -1,5 +1,6 @@
 package com.eleven.manage.platform.service;
 
+import com.eleven.manage.platform.dto.PageResponseDTO;
 import com.eleven.manage.platform.dto.UserDTO;
 
 import java.util.List;
@@ -18,17 +19,17 @@ public interface UserService {
 
     /**
      * 更新用户
-     * @param userDTO
+     * @param id
      * @return
      */
     int updateUser(UserDTO userDTO);
 
     /**
      * 删除用户
-     * @param userDTO
+     * @param id
      * @return
      */
-    int deleteUser(UserDTO userDTO);
+    int deleteUser(int id);
 
     /**
      * 按条件分页查询用户
@@ -36,7 +37,7 @@ public interface UserService {
      * @param pageSize
      * @return
      */
-    List<UserDTO> findByPage(UserDTO userDTO, int pageNum, int pageSize);
+    PageResponseDTO findByPage(UserDTO userDTO, int pageNum, int pageSize);
 
     /**
      * 按条件查询用户
@@ -44,4 +45,11 @@ public interface UserService {
      * @return
      */
     List<UserDTO> findByCondition(UserDTO userDTO);
+
+    /**
+     * 根据ID查询
+     * @param id
+     * @return
+     */
+    UserDTO findById(int id);
 }

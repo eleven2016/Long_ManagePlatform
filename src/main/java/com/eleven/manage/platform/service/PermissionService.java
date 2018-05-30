@@ -1,5 +1,6 @@
 package com.eleven.manage.platform.service;
 
+import com.eleven.manage.platform.dto.PageResponseDTO;
 import com.eleven.manage.platform.dto.PermissionDTO;
 
 import java.util.List;
@@ -44,4 +45,12 @@ public interface PermissionService {
      * @return
      */
     List<PermissionDTO> selectByCondition(PermissionDTO param);
+    /**
+     * 分页查询
+     * @param param
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    PageResponseDTO selectByPage(PermissionDTO param, int pageNum, int pageSize);
 }
