@@ -2,10 +2,12 @@ package com.eleven.manage.platform.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.eleven.manage.platform.dto.MenuDTO;
+import com.eleven.manage.platform.dto.PageResponseDTO;
 import com.eleven.manage.platform.mybatis.dao.MenuDao;
 import com.eleven.manage.platform.mybatis.model.MenuDO;
 import com.eleven.manage.platform.service.MenuService;
 import com.eleven.manage.platform.utils.GenerateListResultUtil;
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -76,14 +78,14 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public List<MenuDTO> selectByPage(MenuDTO param, int pageNum, int pageSize) {
+    public PageResponseDTO selectByPage(MenuDTO param, int pageNum, int pageSize) {
         MenuDO menuDO =new MenuDO();
         if( null != param){
             BeanUtils.copyProperties(param,menuDO);
         }
-        PageHelper.startPage(pageNum, pageSize);
-        List<MenuDO> queryResult = menuDao.selectByCondition(menuDO);
-        List<MenuDTO> result = generateListResultUtil.generate(queryResult,MenuDTO.class);
+        Page<MenuDO> doPage =PageHelper.startPage(pageNum, pageSize);
+        menuDao.selectByCondition(menuDO);
+        PageResponseDTO result = generateListResultUtil.generatePage(doPage,MenuDTO.class);
         logger.info("分页查询结果"+ JSON.toJSONString(result));
         return result;
     }

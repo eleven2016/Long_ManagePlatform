@@ -1,5 +1,8 @@
 package com.eleven.manage.platform.utils;
 
+import com.eleven.manage.platform.dto.PageResponseDTO;
+import com.eleven.manage.platform.dto.PaginationDTO;
+import com.github.pagehelper.Page;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -43,5 +46,26 @@ public class GenerateListResultUtil<S,T> {
             Assert.state(result.size() == 1,"查询时出现重复数据!");
             return result.get(0);
         }
+    }
+
+    /**
+     * 转化page分页
+     * @param source
+     * @param clazz
+     * @return
+     */
+    public PageResponseDTO generatePage(Page<S> source, Class<T> clazz){
+        PageResponseDTO result = new PageResponseDTO();
+        PaginationDTO paginationDTO =new PaginationDTO();
+        Assert.notNull(source,"source param is not null !");
+        paginationDTO.setPageSize(source.getPageSize());
+        paginationDTO.setTotal(source.getTotal());
+        paginationDTO.setPageNum(source.getPageNum());
+        result.setPaginationDTO(paginationDTO);
+        if(!CollectionUtils.isEmpty(source.getResult())){
+            List<T> temp = this.generate(source,clazz);
+            result.setData(temp);
+        }
+        return result;
     }
 }

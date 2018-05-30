@@ -5,6 +5,7 @@ import com.eleven.manage.platform.mybatis.dao.UserDao;
 import com.eleven.manage.platform.mybatis.model.UserDO;
 import com.eleven.manage.platform.service.UserService;
 import com.eleven.manage.platform.utils.GenerateListResultUtil;
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,6 +76,7 @@ public class UserServiceImpl implements UserService {
     public List<UserDO> findAllUser(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         UserDO param = new UserDO();
+        Page<UserDO> page = PageHelper.getLocalPage();
         return userDao.selectByCondition(param);
     }
 }

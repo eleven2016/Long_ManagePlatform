@@ -1,6 +1,7 @@
 package com.eleven.manage.platform.service;
 
 import com.eleven.manage.platform.dto.MenuDTO;
+import com.eleven.manage.platform.dto.PageResponseDTO;
 
 import java.util.List;
 
@@ -51,5 +52,5 @@ public interface MenuService {
      * @param pageSize
      * @return
      */
-    List<MenuDTO> selectByPage(MenuDTO param, int pageNum, int pageSize);
+    PageResponseDTO selectByPage(MenuDTO param, int pageNum, int pageSize);
 }

@@ -3,6 +3,7 @@ package com.eleven.manage.platform.web;
 import com.alibaba.fastjson.JSON;
 import com.eleven.manage.platform.ModelUtils.MenuUtil;
 import com.eleven.manage.platform.dto.MenuDTO;
+import com.eleven.manage.platform.dto.PageResponseDTO;
 import com.eleven.manage.platform.dto.ResponseDTO;
 import com.eleven.manage.platform.service.MenuService;
 import org.slf4j.Logger;
@@ -43,7 +44,7 @@ public class MenuController {
         logger.info("添加菜单参数:"+ JSON.toJSONString(menuDTO));
         ResponseDTO result =new ResponseDTO();
         try{
-            if(null != menuDTO.getId()){
+            if(null != menuDTO.getId() && 0 != menuDTO.getId()){
                 menuService.update(menuDTO);
             }else{
                 menuService.insert(menuDTO);
@@ -85,13 +86,11 @@ public class MenuController {
      */
     @PostMapping("/queryByPage")
     @ResponseBody
-    public ResponseDTO queryByPage(@RequestBody(required = false) MenuDTO menuDTO,@RequestParam(name = "pageNum", required = false, defaultValue = "1")int pageNum,
-                                   @RequestParam(name = "pageSize", required = false, defaultValue = "10") int pageSize){
-        ResponseDTO result =new ResponseDTO();
+    public PageResponseDTO queryByPage(@RequestBody(required = false) MenuDTO menuDTO, @RequestParam(name = "pageNum", required = false, defaultValue = "1")int pageNum,
+                                       @RequestParam(name = "pageSize", required = false, defaultValue = "10") int pageSize){
+        PageResponseDTO result =new PageResponseDTO();
         try{
-            List<MenuDTO> queryResult = menuService.selectByPage(menuDTO,pageNum,pageSize);
-            result.setData(queryResult);
-            result.setSuccess(true);
+            result = menuService.selectByPage(menuDTO,pageNum,pageSize);
         }catch (IllegalArgumentException e){
             result.setSuccess(false);
             result.setErrorMessage(e.getMessage());
@@ -117,6 +116,50 @@ public class MenuController {
             result.setSuccess(false);
             result.setErrorMessage(e.getMessage());
         }catch (Exception e){
+            logger.error("系统错误",e);
+            result.setSuccess(false);
+        }
+        return result;
+    }
+
+    /**
+     * 根据条件查询
+     * @return
+     */
+    @PostMapping("/queryByCondition")
+    @ResponseBody
+    public ResponseDTO queryByCondition(@RequestBody(required = false) MenuDTO menuDTO){
+        ResponseDTO result =new ResponseDTO();
+        try{
+            List<MenuDTO> queryResult = menuService.selectByCondition(menuDTO);
+            result.setData(queryResult);
+            result.setSuccess(true);
+        }catch (IllegalArgumentException e){
+            result.setSuccess(false);
+            result.setErrorMessage(e.getMessage());
+        }catch (Exception e){
+            logger.error("系统错误",e);
+            result.setSuccess(false);
+        }
+        return result;
+    }
+    /**
+     * 根据ID查询
+     * @param id
+     * @return
+     */
+    @PostMapping("/queryById")
+    @ResponseBody
+    public ResponseDTO queryById(@RequestParam(name = "id")int id){
+        ResponseDTO result =new ResponseDTO();
+        try{
+            MenuDTO param=new MenuDTO();
+            param.setId(id);
+            MenuDTO menuDTO =menuService.selectById(param);
+            result.setSuccess(true);
+            result.setData(menuDTO);
+        }catch(Exception e){
+            logger.error("系统错误",e);
             result.setSuccess(false);
         }
         return result;

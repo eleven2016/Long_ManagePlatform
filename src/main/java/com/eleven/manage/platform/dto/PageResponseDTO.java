@@ -6,13 +6,13 @@ package com.eleven.manage.platform.dto;
  **/
 public class PageResponseDTO extends ResponseDTO{
 
-    private PageResponseDTO pageResponseDTO;
+    private PaginationDTO paginationDTO;
 
-    public PageResponseDTO getPageResponseDTO() {
-        return pageResponseDTO;
+    public PaginationDTO getPaginationDTO() {
+        return paginationDTO;
     }
 
-    public void setPageResponseDTO(PageResponseDTO pageResponseDTO) {
-        this.pageResponseDTO = pageResponseDTO;
+    public void setPaginationDTO(PaginationDTO paginationDTO) {
+        this.paginationDTO = paginationDTO;
     }
 }

@@ -5,31 +5,31 @@ package com.eleven.manage.platform.dto;
  * @date 2018/5/25
  **/
 public class PaginationDTO {
-    private int pageSize    = 20;
-    private int currentPage = 1;
-    private int total;
+    private long pageSize = 10;
+    private long pageNum  = 1;
+    private long total;
 
-    public int getPageSize() {
+    public long getPageSize() {
         return pageSize;
     }
 
-    public void setPageSize(int pageSize) {
+    public void setPageSize(long pageSize) {
         this.pageSize = pageSize;
     }
 
-    public int getCurrentPage() {
-        return currentPage;
+    public long getPageNum() {
+        return pageNum;
     }
 
-    public void setCurrentPage(int currentPage) {
-        this.currentPage = currentPage;
+    public void setPageNum(long pageNum) {
+        this.pageNum = pageNum;
     }
 
-    public int getTotal() {
+    public long getTotal() {
         return total;
     }
 
-    public void setTotal(int total) {
+    public void setTotal(long total) {
         this.total = total;
     }
 }
