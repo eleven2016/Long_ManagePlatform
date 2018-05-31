@@ -9,14 +9,14 @@ import java.util.List;
  */
 @Service("userDao")
 public interface UserDao{
-    public int deleteById (java.lang.Integer id);
+    int deleteById (java.lang.Integer id);
 
-    public int update (UserDO param);
+    int update (UserDO param);
 
-    public int insert (UserDO param);
+    int insert (UserDO param);
 
-    public List<UserDO> selectById(UserDO param);
+    List<UserDO> selectById(UserDO param);
 
-    public List<UserDO> selectByCondition(UserDO param);
+    List<UserDO> selectByCondition(UserDO param);
 
 }

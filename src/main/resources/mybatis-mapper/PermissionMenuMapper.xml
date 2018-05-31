@@ -19,6 +19,9 @@
             <if test="permissionId != null ">
                 permission_id =#{permissionId}
             </if>
+            <if test="menuId != null ">
+                menu_id =#{menuId}
+            </if>
         </where>
     </select>
     <insert id="insert" parameterType="com.eleven.manage.platform.mybatis.model.PermissionMenuMapperDO">

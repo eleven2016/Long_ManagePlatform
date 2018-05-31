@@ -1,9 +1,11 @@
 package com.eleven.manage.platform.web;
 
 import com.alibaba.fastjson.JSON;
+import com.eleven.manage.platform.ModelUtils.UserUtil;
 import com.eleven.manage.platform.dto.PageResponseDTO;
 import com.eleven.manage.platform.dto.ResponseDTO;
 import com.eleven.manage.platform.dto.UserDTO;
+import com.eleven.manage.platform.dto.UserRoleMapperDTO;
 import com.eleven.manage.platform.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,7 +46,7 @@ public class UserController {
         ResponseDTO result =new ResponseDTO();
 
         try{
-            Assert.isTrue(null == user,"参数不能为空!");
+            Assert.isTrue(null != user,"参数不能为空!");
             Assert.hasText( user.getUserName(),"参数用户名称不能为空!");
             if(null != user.getId() && 0 != user.getId()){
                 userService.updateUser(user);
@@ -139,6 +141,76 @@ public class UserController {
             result.setData(userDTO);
         }catch(Exception e){
             logger.error("系统错误",e);
+            result.setSuccess(false);
+        }
+        return result;
+    }
+
+
+    /**
+     * 根据用户查询角色
+     * @param userId
+     * @return
+     */
+    @PostMapping("/findRolesByUserId")
+    @ResponseBody
+    public ResponseDTO findRolesByUserId(@RequestParam(name = "id")int userId){
+        ResponseDTO result =new ResponseDTO();
+        try{
+            Assert.isTrue(userId>0,"userId不合法!");
+            List<UserRoleMapperDTO> userRoleMapperDTOS = userService.findRolesByUserId(userId);
+            result.setData(UserUtil.generateUserRole(userRoleMapperDTOS));
+            result.setSuccess(true);
+        }catch (IllegalArgumentException e){
+            result.setSuccess(false);
+            result.setErrorMessage(e.getMessage());
+        }catch (Exception e){
+            logger.error("系统错误", e);
+            result.setSuccess(false);
+        }
+        return result;
+    }
+
+    /**
+     * 根据条件查询
+     * @return
+     */
+    @PostMapping("/queryByCondition")
+    @ResponseBody
+    public ResponseDTO queryByCondition(@RequestBody(required = false) UserDTO userDTO){
+        ResponseDTO result =new ResponseDTO();
+        try{
+            List<UserDTO> queryResult = userService.findByCondition(userDTO);
+            result.setData(queryResult);
+            result.setSuccess(true);
+        }catch (IllegalArgumentException e){
+            result.setSuccess(false);
+            result.setErrorMessage(e.getMessage());
+        }catch (Exception e){
+            logger.error("系统错误",e);
+            result.setSuccess(false);
+        }
+        return result;
+    }
+
+    /**
+     * 保存角色与权限的关联
+     * @param param
+     * @return
+     */
+    @PostMapping("/saveRolePerMap")
+    @ResponseBody
+    public ResponseDTO saveRolePerMap(@RequestBody UserRoleMapperDTO param){
+        ResponseDTO result =new ResponseDTO();
+        try{
+            Assert.notNull(param,"参数不能为空!");
+            userService.saveUserRoleMap(param);
+            result.setSuccess(true);
+        }catch (IllegalArgumentException e){
+            result.setSuccess(false);
+            result.setErrorMessage(e.getMessage());
+        }catch (Exception e){
+            logger.error("系统错误", e);
             result.setSuccess(false);
         }
         return result;

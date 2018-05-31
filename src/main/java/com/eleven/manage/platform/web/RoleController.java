@@ -1,9 +1,11 @@
 package com.eleven.manage.platform.web;
 
 import com.alibaba.fastjson.JSON;
+import com.eleven.manage.platform.ModelUtils.RoleUtil;
 import com.eleven.manage.platform.dto.PageResponseDTO;
 import com.eleven.manage.platform.dto.ResponseDTO;
 import com.eleven.manage.platform.dto.RoleDTO;
+import com.eleven.manage.platform.dto.RolePermissionMapperDTO;
 import com.eleven.manage.platform.service.RoleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -120,6 +122,75 @@ public class RoleController {
         PageResponseDTO result =new PageResponseDTO();
         try{
             result = roleService.selectByPage(roleDTO,pageNum,pageSize);
+        }catch (IllegalArgumentException e){
+            result.setSuccess(false);
+            result.setErrorMessage(e.getMessage());
+        }catch (Exception e){
+            logger.error("系统错误", e);
+            result.setSuccess(false);
+        }
+        return result;
+    }
+
+    /**
+     * 根据角色查询权限
+     * @param id
+     * @return
+     */
+    @PostMapping("/findPermissionsByRoleId")
+    @ResponseBody
+    public ResponseDTO findPermissionsByRoleId(@RequestParam(name = "id")int id){
+        ResponseDTO result =new ResponseDTO();
+        try{
+            Assert.isTrue(id>0,"id不合法!");
+            List<RolePermissionMapperDTO> rolePermissionMapperDTOS = roleService.findPermissionsByRoleId(id);
+            result.setData(RoleUtil.generateRolePer(rolePermissionMapperDTOS));
+            result.setSuccess(true);
+        }catch (IllegalArgumentException e){
+            result.setSuccess(false);
+            result.setErrorMessage(e.getMessage());
+        }catch (Exception e){
+            logger.error("系统错误", e);
+            result.setSuccess(false);
+        }
+        return result;
+    }
+
+    /**
+     * 根据条件查询
+     * @return
+     */
+    @PostMapping("/queryByCondition")
+    @ResponseBody
+    public ResponseDTO queryByCondition(@RequestBody(required = false) RoleDTO roleDTO){
+        ResponseDTO result =new ResponseDTO();
+        try{
+            List<RoleDTO> queryResult = roleService.selectByCondition(roleDTO);
+            result.setData(queryResult);
+            result.setSuccess(true);
+        }catch (IllegalArgumentException e){
+            result.setSuccess(false);
+            result.setErrorMessage(e.getMessage());
+        }catch (Exception e){
+            logger.error("系统错误",e);
+            result.setSuccess(false);
+        }
+        return result;
+    }
+
+    /**
+     * 保存角色与权限的关联
+     * @param param
+     * @return
+     */
+    @PostMapping("/saveRolePerMap")
+    @ResponseBody
+    public ResponseDTO saveRolePerMap(@RequestBody RolePermissionMapperDTO param){
+        ResponseDTO result =new ResponseDTO();
+        try{
+            Assert.notNull(param,"参数不能为空!");
+            roleService.saveRolePerMap(param);
+            result.setSuccess(true);
         }catch (IllegalArgumentException e){
             result.setSuccess(false);
             result.setErrorMessage(e.getMessage());

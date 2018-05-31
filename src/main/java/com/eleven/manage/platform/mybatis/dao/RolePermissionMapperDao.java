@@ -9,14 +9,14 @@ import java.util.List;
  */
 @Service("rolePermissionMapperDao")
 public interface RolePermissionMapperDao{
-    public int deleteById (java.lang.Integer id);
+    int deleteById (java.lang.Integer id);
 
-    public int update (RolePermissionMapperDO param);
+    int update (RolePermissionMapperDO param);
 
-    public int insert (RolePermissionMapperDO param);
+    int insert (RolePermissionMapperDO param);
 
-    public List<RolePermissionMapperDO> selectById(RolePermissionMapperDO param);
+    List<RolePermissionMapperDO> selectById(RolePermissionMapperDO param);
 
-    public List<RolePermissionMapperDO> selectByCondition(RolePermissionMapperDO param);
+    List<RolePermissionMapperDO> selectByCondition(RolePermissionMapperDO param);
 
 }

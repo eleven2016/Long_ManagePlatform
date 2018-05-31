@@ -6,7 +6,7 @@ import com.eleven.manage.platform.dto.PageResponseDTO;
 import com.eleven.manage.platform.mybatis.dao.MenuDao;
 import com.eleven.manage.platform.mybatis.model.MenuDO;
 import com.eleven.manage.platform.service.MenuService;
-import com.eleven.manage.platform.utils.GenerateListResultUtil;
+import com.eleven.manage.platform.utils.GenerateUtil;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.slf4j.Logger;
@@ -28,7 +28,7 @@ public class MenuServiceImpl implements MenuService {
 
     private static Logger logger = LoggerFactory.getLogger(MenuServiceImpl.class);
 
-    GenerateListResultUtil<MenuDO, MenuDTO> generateListResultUtil =new GenerateListResultUtil<>();
+    GenerateUtil<MenuDO, MenuDTO> generateListResultUtil =new GenerateUtil<>();
     @Autowired
     private MenuDao menuDao;
 

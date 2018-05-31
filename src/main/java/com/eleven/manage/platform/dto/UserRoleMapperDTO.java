@@ -1,6 +1,9 @@
 package com.eleven.manage.platform.dto;
 
 import lombok.Data;
+
+import java.util.List;
+
 /**
  * @author ywl
  * @date 2018/05/24
@@ -12,6 +15,8 @@ public class UserRoleMapperDTO{
     private Integer userId;
 
     private Integer roleId;
+
+    private List<Integer> roles;
 
     public Integer getId() {
         return id;
@@ -35,5 +40,13 @@ public class UserRoleMapperDTO{
 
     public void setRoleId(Integer roleId) {
         this.roleId = roleId;
+    }
+
+    public List<Integer> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Integer> roles) {
+        this.roles = roles;
     }
 }

@@ -1,6 +1,9 @@
 package com.eleven.manage.platform.dto;
 
 import lombok.Data;
+
+import java.util.List;
+
 /**
  * @author ywl
  * @date 2018/05/24
@@ -12,6 +15,8 @@ public class RolePermissionMapperDTO{
     private Integer roleId;
 
     private Integer permissionId;
+
+    private List<Integer> permissions;
 
     public Integer getId() {
         return id;
@@ -35,5 +40,13 @@ public class RolePermissionMapperDTO{
 
     public void setPermissionId(Integer permissionId) {
         this.permissionId = permissionId;
+    }
+
+    public List<Integer> getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(List<Integer> permissions) {
+        this.permissions = permissions;
     }
 }

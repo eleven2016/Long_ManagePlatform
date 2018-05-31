@@ -2,6 +2,7 @@ package com.eleven.manage.platform.service;
 
 import com.eleven.manage.platform.dto.PageResponseDTO;
 import com.eleven.manage.platform.dto.PermissionDTO;
+import com.eleven.manage.platform.dto.PermissionMenuMapperDTO;
 
 import java.util.List;
 
@@ -53,4 +54,17 @@ public interface PermissionService {
      * @return
      */
     PageResponseDTO selectByPage(PermissionDTO param, int pageNum, int pageSize);
+
+    /**
+     * 根据ID查询关联菜单
+     * @param id
+     * @return
+     */
+    List<PermissionMenuMapperDTO> findMenusByPermission(int id);
+
+    /**
+     * 保存权限与菜单的关联
+     * @param param
+     */
+    void savePerMenuMap(PermissionMenuMapperDTO param);
 }

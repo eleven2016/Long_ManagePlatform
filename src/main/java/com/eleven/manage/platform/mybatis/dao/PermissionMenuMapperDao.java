@@ -9,14 +9,14 @@ import java.util.List;
  */
 @Service("permissionMenuMapperDao")
 public interface PermissionMenuMapperDao{
-    public int deleteById (java.lang.Integer id);
+    int deleteById (java.lang.Integer id);
 
-    public int update (PermissionMenuMapperDO param);
+    int update (PermissionMenuMapperDO param);
 
-    public int insert (PermissionMenuMapperDO param);
+    int insert (PermissionMenuMapperDO param);
 
-    public List<PermissionMenuMapperDO> selectById(PermissionMenuMapperDO param);
+    List<PermissionMenuMapperDO> selectById(PermissionMenuMapperDO param);
 
-    public List<PermissionMenuMapperDO> selectByCondition(PermissionMenuMapperDO param);
+    List<PermissionMenuMapperDO> selectByCondition(PermissionMenuMapperDO param);
 
 }

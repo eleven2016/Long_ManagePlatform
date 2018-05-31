@@ -17,10 +17,10 @@ import java.util.stream.Collectors;
  * @author ywl
  * @date 2018/5/24
  **/
-public class GenerateListResultUtil<S,T> {
-    private static Logger logger = LoggerFactory.getLogger(GenerateListResultUtil.class);
+public class GenerateUtil<S,T> {
+    private static Logger logger = LoggerFactory.getLogger(GenerateUtil.class);
 
-    public GenerateListResultUtil() {
+    public GenerateUtil() {
     }
     public List<T> generate(List<S> source,Class<T> clazz){
         List<T> result =new ArrayList<>();

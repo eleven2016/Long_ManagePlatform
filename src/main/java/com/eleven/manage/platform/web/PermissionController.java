@@ -1,8 +1,10 @@
 package com.eleven.manage.platform.web;
 
 import com.alibaba.fastjson.JSON;
+import com.eleven.manage.platform.ModelUtils.PermissionUtil;
 import com.eleven.manage.platform.dto.PageResponseDTO;
 import com.eleven.manage.platform.dto.PermissionDTO;
+import com.eleven.manage.platform.dto.PermissionMenuMapperDTO;
 import com.eleven.manage.platform.dto.ResponseDTO;
 import com.eleven.manage.platform.service.PermissionService;
 import org.slf4j.Logger;
@@ -125,6 +127,75 @@ public class PermissionController {
             result.setErrorMessage(e.getMessage());
         }catch (Exception e){
             logger.error("系统错误", e);
+            result.setSuccess(false);
+        }
+        return result;
+    }
+
+    /**
+     *  根据权限ID查询关联的菜单
+     * @param id
+     * @return
+     */
+    @PostMapping("/findMenusByPerId")
+    @ResponseBody
+    public ResponseDTO findMenusByPermission(@RequestParam(name = "id")int id){
+        ResponseDTO result =new ResponseDTO();
+        try{
+            Assert.isTrue(id>0,"id不合法!");
+            List<PermissionMenuMapperDTO> permissionMenuMapperDTOS = permissionService.findMenusByPermission(id);
+            result.setData(PermissionUtil.generatePerMenu(permissionMenuMapperDTOS));
+            result.setSuccess(true);
+        }catch (IllegalArgumentException e){
+            result.setSuccess(false);
+            result.setErrorMessage(e.getMessage());
+        }catch (Exception e){
+            logger.error("系统错误", e);
+            result.setSuccess(false);
+        }
+        return result;
+    }
+
+    /**
+     * 保存权限与菜单的关联
+     * @param param
+     * @return
+     */
+    @PostMapping("/savePerMenuMap")
+    @ResponseBody
+    public ResponseDTO savePerMenuMap(@RequestBody PermissionMenuMapperDTO param){
+        PageResponseDTO result =new PageResponseDTO();
+        try{
+            Assert.notNull(param,"参数不能为空!");
+            permissionService.savePerMenuMap(param);
+            result.setSuccess(true);
+        }catch (IllegalArgumentException e){
+            result.setSuccess(false);
+            result.setErrorMessage(e.getMessage());
+        }catch (Exception e){
+            logger.error("系统错误", e);
+            result.setSuccess(false);
+        }
+        return result;
+    }
+
+    /**
+     * 根据条件查询
+     * @return
+     */
+    @PostMapping("/queryByCondition")
+    @ResponseBody
+    public ResponseDTO queryByCondition(@RequestBody(required = false) PermissionDTO permissionDTO){
+        ResponseDTO result =new ResponseDTO();
+        try{
+            List<PermissionDTO> queryResult = permissionService.selectByCondition(permissionDTO);
+            result.setData(queryResult);
+            result.setSuccess(true);
+        }catch (IllegalArgumentException e){
+            result.setSuccess(false);
+            result.setErrorMessage(e.getMessage());
+        }catch (Exception e){
+            logger.error("系统错误",e);
             result.setSuccess(false);
         }
         return result;

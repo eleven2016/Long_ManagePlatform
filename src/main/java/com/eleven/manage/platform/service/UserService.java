@@ -2,6 +2,7 @@ package com.eleven.manage.platform.service;
 
 import com.eleven.manage.platform.dto.PageResponseDTO;
 import com.eleven.manage.platform.dto.UserDTO;
+import com.eleven.manage.platform.dto.UserRoleMapperDTO;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ public interface UserService {
 
     /**
      * 更新用户
-     * @param id
+     * @param userDTO
      * @return
      */
     int updateUser(UserDTO userDTO);
@@ -52,4 +53,18 @@ public interface UserService {
      * @return
      */
     UserDTO findById(int id);
+
+    /**
+     * 根据用户ID查询角色
+     * @param userId
+     * @return
+     */
+    List<UserRoleMapperDTO> findRolesByUserId(int userId);
+
+    /**
+     * 保存用户与角色关联
+     * @param param
+     */
+    void saveUserRoleMap(UserRoleMapperDTO param);
+
 }
