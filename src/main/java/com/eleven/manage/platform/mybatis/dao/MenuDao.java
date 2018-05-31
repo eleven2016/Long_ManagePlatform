@@ -19,4 +19,6 @@ public interface MenuDao{
 
     List<MenuDO> selectByCondition(MenuDO param);
 
+    List<Integer> selectByUser(java.lang.Integer userId);
+
 }

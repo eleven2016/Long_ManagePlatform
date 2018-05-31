@@ -80,5 +80,13 @@
         delete from menu
         where id = #{id}
     </delete>
-
+    <select id="selectByUser" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select DISTINCT pm.menu_id
+        from permission_menu_mapper as pm
+        LEFT JOIN  role_permission_mapper as rp on pm.permission_id = rp.permission_id
+        LEFT JOIN  user_role_mapper as ur on rp.role_id = ur.role_id
+        where
+            ur.user_id = #{userId}
+        order by pm.menu_id DESC
+    </select>
 </mapper>

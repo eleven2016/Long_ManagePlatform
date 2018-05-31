@@ -53,4 +53,11 @@ public interface MenuService {
      * @return
      */
     PageResponseDTO selectByPage(MenuDTO param, int pageNum, int pageSize);
+
+    /**
+     * 根据用户查询该用户权限下的菜单
+     * @param userId
+     * @return
+     */
+    List<MenuDTO> selectByUser(int userId);
 }
