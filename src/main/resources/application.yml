@@ -4,8 +4,9 @@ server:
   servlet:
     context-path: /manageplatform
 
-#数据库配置
+
 spring:
+#数据库配置
   datasource:
      url: jdbc:mysql://127.0.0.1:3306/manageplatform?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false
      username: root
@@ -27,6 +28,18 @@ spring:
      poolPreparedStatements: true
      maxPoolPreparedStatementPerConnectionSize: 20
      maxOpenPreparedStatements: 20
+  redis:
+    host: localhost
+    database: 0
+    port: 6379
+    password:
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1
+        min-idle: 0
+    timeout: 100
+
 
 
 
@@ -47,7 +60,6 @@ pagehelper:
     supportMethodsArguments: true
     params: count=countSql
     returnPageInfo: check
-
 
 
 

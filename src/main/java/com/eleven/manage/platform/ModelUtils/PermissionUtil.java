@@ -1,6 +1,6 @@
 package com.eleven.manage.platform.ModelUtils;
 
-import com.eleven.manage.platform.dto.PermissionMenuMapperDTO;
+import com.eleven.manage.platform.dto.basic.PermissionMenuMapperDTO;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;

@@ -1,8 +1,8 @@
 package com.eleven.manage.platform.service.impl;
 
-import com.eleven.manage.platform.dto.PageResponseDTO;
-import com.eleven.manage.platform.dto.PermissionDTO;
-import com.eleven.manage.platform.dto.PermissionMenuMapperDTO;
+import com.eleven.manage.platform.dto.common.PageResponseDTO;
+import com.eleven.manage.platform.dto.basic.PermissionDTO;
+import com.eleven.manage.platform.dto.basic.PermissionMenuMapperDTO;
 import com.eleven.manage.platform.mybatis.dao.PermissionDao;
 import com.eleven.manage.platform.mybatis.dao.PermissionMenuMapperDao;
 import com.eleven.manage.platform.mybatis.model.PermissionDO;

@@ -1,4 +1,4 @@
-package com.eleven.manage.platform.dto;
+package com.eleven.manage.platform.dto.basic;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;

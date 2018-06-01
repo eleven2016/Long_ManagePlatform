@@ -1,8 +1,8 @@
 package com.eleven.manage.platform.service.impl;
 
-import com.eleven.manage.platform.dto.PageResponseDTO;
-import com.eleven.manage.platform.dto.RoleDTO;
-import com.eleven.manage.platform.dto.RolePermissionMapperDTO;
+import com.eleven.manage.platform.dto.common.PageResponseDTO;
+import com.eleven.manage.platform.dto.basic.RoleDTO;
+import com.eleven.manage.platform.dto.basic.RolePermissionMapperDTO;
 import com.eleven.manage.platform.mybatis.dao.RoleDao;
 import com.eleven.manage.platform.mybatis.dao.RolePermissionMapperDao;
 import com.eleven.manage.platform.mybatis.model.RoleDO;

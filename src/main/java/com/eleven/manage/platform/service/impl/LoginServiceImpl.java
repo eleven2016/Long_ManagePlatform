@@ -1,9 +1,10 @@
 package com.eleven.manage.platform.service.impl;
 
-import com.eleven.manage.platform.dto.LoginDTO;
-import com.eleven.manage.platform.dto.UserDTO;
+import com.eleven.manage.platform.dto.common.LoginDTO;
+import com.eleven.manage.platform.dto.basic.UserDTO;
 import com.eleven.manage.platform.mybatis.dao.UserDao;
 import com.eleven.manage.platform.mybatis.model.UserDO;
+import com.eleven.manage.platform.redis.RedisService;
 import com.eleven.manage.platform.service.LoginService;
 import com.eleven.manage.platform.utils.EncryptUtil;
 import com.eleven.manage.platform.utils.GenerateUtil;
@@ -23,6 +24,9 @@ public class LoginServiceImpl implements LoginService {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private RedisService redisService;
 
     /**
      * 验证登录
@@ -47,7 +51,7 @@ public class LoginServiceImpl implements LoginService {
         //验证成功,生成TOKEN
 
         token =EncryptUtil.aes_encrypt(users.get(0).getId()+"-"+users.get(0).getUserName());
-
+        redisService.set(token,token,Long.valueOf(3600));
         return  token;
     }
 
@@ -57,11 +61,15 @@ public class LoginServiceImpl implements LoginService {
         Assert.hasText(token,"请重新登录");
         UserDTO user = null;
         try{
-            String tempStr= EncryptUtil.aes_decrypt(token);
+            Object tokenValue = redisService.get(token);
+            Assert.notNull(tokenValue ,"登录超时");
+            String tempStr= EncryptUtil.aes_decrypt((String)tokenValue);
             Integer id = Integer.valueOf(tempStr.split("-")[0]);
             UserDO param =new UserDO();
             param.setId(id);
             user = userGenerateUtil.generateOne(userDao.selectById(param),UserDTO.class);
+        }catch (IllegalArgumentException e){
+            Assert.isTrue(false,e.getMessage());
         }catch (Exception e){
             Assert.isTrue(false,"非法token");
         }

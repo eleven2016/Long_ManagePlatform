@@ -1,4 +1,4 @@
-package com.eleven.manage.platform.dto;
+package com.eleven.manage.platform.dto.common;
 
 import lombok.Data;
 

@@ -1,8 +1,8 @@
 package com.eleven.manage.platform.service.impl;
 
-import com.eleven.manage.platform.dto.PageResponseDTO;
-import com.eleven.manage.platform.dto.UserDTO;
-import com.eleven.manage.platform.dto.UserRoleMapperDTO;
+import com.eleven.manage.platform.dto.common.PageResponseDTO;
+import com.eleven.manage.platform.dto.basic.UserDTO;
+import com.eleven.manage.platform.dto.basic.UserRoleMapperDTO;
 import com.eleven.manage.platform.mybatis.dao.UserDao;
 import com.eleven.manage.platform.mybatis.dao.UserRoleMapperDao;
 import com.eleven.manage.platform.mybatis.model.UserDO;

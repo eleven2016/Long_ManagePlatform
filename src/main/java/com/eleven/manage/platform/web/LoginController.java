@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
-import com.eleven.manage.platform.dto.LoginDTO;
-import com.eleven.manage.platform.dto.ResponseDTO;
-import com.eleven.manage.platform.dto.UserDTO;
+import com.eleven.manage.platform.dto.common.LoginDTO;
+import com.eleven.manage.platform.dto.common.ResponseDTO;
+import com.eleven.manage.platform.dto.basic.UserDTO;
 import com.eleven.manage.platform.service.LoginService;
 
 

@@ -1,7 +1,7 @@
 package com.eleven.manage.platform.utils;
 
-import com.eleven.manage.platform.dto.PageResponseDTO;
-import com.eleven.manage.platform.dto.PaginationDTO;
+import com.eleven.manage.platform.dto.common.PageResponseDTO;
+import com.eleven.manage.platform.dto.common.PaginationDTO;
 import com.github.pagehelper.Page;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

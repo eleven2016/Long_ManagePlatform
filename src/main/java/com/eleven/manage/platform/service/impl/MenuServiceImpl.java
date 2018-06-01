@@ -1,8 +1,8 @@
 package com.eleven.manage.platform.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.eleven.manage.platform.dto.MenuDTO;
-import com.eleven.manage.platform.dto.PageResponseDTO;
+import com.eleven.manage.platform.dto.basic.MenuDTO;
+import com.eleven.manage.platform.dto.common.PageResponseDTO;
 import com.eleven.manage.platform.mybatis.dao.MenuDao;
 import com.eleven.manage.platform.mybatis.dao.PermissionMenuMapperDao;
 import com.eleven.manage.platform.mybatis.dao.RolePermissionMapperDao;

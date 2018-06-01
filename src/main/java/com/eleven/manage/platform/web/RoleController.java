@@ -2,10 +2,10 @@ package com.eleven.manage.platform.web;
 
 import com.alibaba.fastjson.JSON;
 import com.eleven.manage.platform.ModelUtils.RoleUtil;
-import com.eleven.manage.platform.dto.PageResponseDTO;
-import com.eleven.manage.platform.dto.ResponseDTO;
-import com.eleven.manage.platform.dto.RoleDTO;
-import com.eleven.manage.platform.dto.RolePermissionMapperDTO;
+import com.eleven.manage.platform.dto.common.PageResponseDTO;
+import com.eleven.manage.platform.dto.common.ResponseDTO;
+import com.eleven.manage.platform.dto.basic.RoleDTO;
+import com.eleven.manage.platform.dto.basic.RolePermissionMapperDTO;
 import com.eleven.manage.platform.service.RoleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

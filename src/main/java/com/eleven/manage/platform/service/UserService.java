@@ -1,8 +1,8 @@
 package com.eleven.manage.platform.service;
 
-import com.eleven.manage.platform.dto.PageResponseDTO;
-import com.eleven.manage.platform.dto.UserDTO;
-import com.eleven.manage.platform.dto.UserRoleMapperDTO;
+import com.eleven.manage.platform.dto.common.PageResponseDTO;
+import com.eleven.manage.platform.dto.basic.UserDTO;
+import com.eleven.manage.platform.dto.basic.UserRoleMapperDTO;
 
 import java.util.List;
 

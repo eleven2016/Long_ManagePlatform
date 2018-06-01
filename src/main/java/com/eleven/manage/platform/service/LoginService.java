@@ -1,7 +1,7 @@
 package com.eleven.manage.platform.service;
 
-import com.eleven.manage.platform.dto.LoginDTO;
-import com.eleven.manage.platform.dto.UserDTO;
+import com.eleven.manage.platform.dto.common.LoginDTO;
+import com.eleven.manage.platform.dto.basic.UserDTO;
 
 /**
  * @author ywl

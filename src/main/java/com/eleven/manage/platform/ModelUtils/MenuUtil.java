@@ -1,7 +1,7 @@
 package com.eleven.manage.platform.ModelUtils;
 
-import com.eleven.manage.platform.dto.MenuDTO;
-import com.eleven.manage.platform.dto.MenusDTO;
+import com.eleven.manage.platform.dto.basic.MenuDTO;
+import com.eleven.manage.platform.dto.basic.MenusDTO;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;

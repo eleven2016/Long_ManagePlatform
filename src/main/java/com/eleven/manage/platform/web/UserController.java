@@ -2,10 +2,10 @@ package com.eleven.manage.platform.web;
 
 import com.alibaba.fastjson.JSON;
 import com.eleven.manage.platform.ModelUtils.UserUtil;
-import com.eleven.manage.platform.dto.PageResponseDTO;
-import com.eleven.manage.platform.dto.ResponseDTO;
-import com.eleven.manage.platform.dto.UserDTO;
-import com.eleven.manage.platform.dto.UserRoleMapperDTO;
+import com.eleven.manage.platform.dto.common.PageResponseDTO;
+import com.eleven.manage.platform.dto.common.ResponseDTO;
+import com.eleven.manage.platform.dto.basic.UserDTO;
+import com.eleven.manage.platform.dto.basic.UserRoleMapperDTO;
 import com.eleven.manage.platform.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

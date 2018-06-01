@@ -1,7 +1,7 @@
 package com.eleven.manage.platform.service;
 
-import com.eleven.manage.platform.dto.MenuDTO;
-import com.eleven.manage.platform.dto.PageResponseDTO;
+import com.eleven.manage.platform.dto.basic.MenuDTO;
+import com.eleven.manage.platform.dto.common.PageResponseDTO;
 
 import java.util.List;
 

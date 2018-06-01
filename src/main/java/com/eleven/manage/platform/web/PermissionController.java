@@ -2,10 +2,10 @@ package com.eleven.manage.platform.web;
 
 import com.alibaba.fastjson.JSON;
 import com.eleven.manage.platform.ModelUtils.PermissionUtil;
-import com.eleven.manage.platform.dto.PageResponseDTO;
-import com.eleven.manage.platform.dto.PermissionDTO;
-import com.eleven.manage.platform.dto.PermissionMenuMapperDTO;
-import com.eleven.manage.platform.dto.ResponseDTO;
+import com.eleven.manage.platform.dto.common.PageResponseDTO;
+import com.eleven.manage.platform.dto.basic.PermissionDTO;
+import com.eleven.manage.platform.dto.basic.PermissionMenuMapperDTO;
+import com.eleven.manage.platform.dto.common.ResponseDTO;
 import com.eleven.manage.platform.service.PermissionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

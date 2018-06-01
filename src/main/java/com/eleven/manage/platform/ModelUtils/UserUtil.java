@@ -1,6 +1,6 @@
 package com.eleven.manage.platform.ModelUtils;
 
-import com.eleven.manage.platform.dto.UserRoleMapperDTO;
+import com.eleven.manage.platform.dto.basic.UserRoleMapperDTO;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
