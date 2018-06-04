@@ -1,8 +1,7 @@
 package com.eleven.manage.platform.quartz.service;
 
+import com.eleven.manage.platform.dto.common.PageResponseDTO;
 import com.eleven.manage.platform.dto.common.QuartzDTO;
-
-import java.util.List;
 
 /**
  * quartz工具服务
@@ -17,6 +16,13 @@ public interface QuartzUtilService {
      * @return
      */
     boolean addQuartzJob(QuartzDTO quartzDTO);
+
+    /**
+     * 更新job
+     * @param quartzDTO
+     * @return
+     */
+    boolean rescheduleJob(QuartzDTO quartzDTO);
 
     /**
      * 暂停job
@@ -46,5 +52,5 @@ public interface QuartzUtilService {
      * @param pageSize
      * @return
      */
-    List<QuartzDTO> findQuartzJobs(QuartzDTO quartzDTO, int pageNum, int pageSize);
+    PageResponseDTO findQuartzJobs(QuartzDTO quartzDTO, int pageNum, int pageSize);
 }

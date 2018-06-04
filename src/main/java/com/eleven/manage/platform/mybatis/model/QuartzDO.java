@@ -1,54 +1,17 @@
-package com.eleven.manage.platform.dto.common;
+package com.eleven.manage.platform.mybatis.model;
 
 /**
- * quartz DTO
  * @author ywl
- * @date 2018/6/1
+ * @date 2018/6/4
  **/
-public class QuartzDTO {
-    /**
-     * job的类名
-     */
-    private String  jobClassName;
-    /**
-     * job的组名
-     */
-    private String  jobGroupName;
-    /**
-     * cron表达式
-     */
-    private String  cron;
-
-    private String  jobName;
-    private String  jobGroup;
-    private String  triggerName;
-    private String  triggerGroup;
+public class QuartzDO {
+    private String jobName;
+    private String jobGroup;
+    private String jobClassName;
+    private String triggerName;
+    private String triggerGroup;
     private Integer repeatInterval;
     private Integer timesTriggered;
-
-    public String getJobClassName() {
-        return jobClassName;
-    }
-
-    public void setJobClassName(String jobClassName) {
-        this.jobClassName = jobClassName;
-    }
-
-    public String getJobGroupName() {
-        return jobGroupName;
-    }
-
-    public void setJobGroupName(String jobGroupName) {
-        this.jobGroupName = jobGroupName;
-    }
-
-    public String getCron() {
-        return cron;
-    }
-
-    public void setCron(String cron) {
-        this.cron = cron;
-    }
 
     public String getJobName() {
         return jobName;
@@ -64,6 +27,14 @@ public class QuartzDTO {
 
     public void setJobGroup(String jobGroup) {
         this.jobGroup = jobGroup;
+    }
+
+    public String getJobClassName() {
+        return jobClassName;
+    }
+
+    public void setJobClassName(String jobClassName) {
+        this.jobClassName = jobClassName;
     }
 
     public String getTriggerName() {
