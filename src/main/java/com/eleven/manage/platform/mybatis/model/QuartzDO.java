@@ -12,6 +12,7 @@ public class QuartzDO {
     private String triggerGroup;
     private Integer repeatInterval;
     private Integer timesTriggered;
+    private String  cron;
 
     public String getJobName() {
         return jobName;
@@ -67,5 +68,13 @@ public class QuartzDO {
 
     public void setTimesTriggered(Integer timesTriggered) {
         this.timesTriggered = timesTriggered;
+    }
+
+    public String getCron() {
+        return cron;
+    }
+
+    public void setCron(String cron) {
+        this.cron = cron;
     }
 }

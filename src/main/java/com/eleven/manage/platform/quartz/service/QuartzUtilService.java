@@ -16,6 +16,12 @@ public interface QuartzUtilService {
      * @return
      */
     boolean addQuartzJob(QuartzDTO quartzDTO);
+    /**
+     * 启动ob
+     * @param quartzDTO
+     * @return
+     */
+    boolean startQuartzJob(QuartzDTO quartzDTO);
 
     /**
      * 更新job

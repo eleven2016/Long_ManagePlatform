@@ -21,6 +21,7 @@ import org.quartz.TriggerBuilder;
 import org.quartz.TriggerKey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -47,20 +48,23 @@ public class QuartzUtilServiceImpl implements QuartzUtilService {
         boolean result = false;
         try{
             Assert.notNull(quartzDTO,"发起定时任务参数不能为空!");
+            Assert.hasText(quartzDTO.getJobName(),"发起定时任务[名称]不能为空!");
             Assert.hasText(quartzDTO.getJobClassName(),"发起定时任务[类名称]不能为空!");
-            Assert.hasText(quartzDTO.getJobGroupName(),"发起定时任务[组名称]不能为空!");
+            Assert.hasText(quartzDTO.getJobGroup(),"发起定时任务[组名称]不能为空!");
             Assert.hasText(quartzDTO.getCron(),"发起定时任务[Cron表达式]不能为空!");
             scheduler.start();
 
             Class<?> class1 = Class.forName(quartzDTO.getJobClassName());
 
-            JobDetail jobDetail = JobBuilder.newJob(((BaseQuartzJob)class1.newInstance()).getClass()).withIdentity(quartzDTO.getJobClassName(),quartzDTO.getJobGroupName()).build();
+            JobDetail jobDetail = JobBuilder.newJob(((BaseQuartzJob)class1.newInstance()).getClass()).withIdentity(quartzDTO.getJobName(),quartzDTO.getJobGroup()).build();
 
             CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(quartzDTO.getCron());
 
-            CronTrigger trigger = TriggerBuilder.newTrigger().withIdentity(quartzDTO.getJobClassName(),quartzDTO.getJobGroupName()).withSchedule(scheduleBuilder).build();
+            CronTrigger trigger = TriggerBuilder.newTrigger().withIdentity(quartzDTO.getJobName(),quartzDTO.getJobGroup()).withSchedule(scheduleBuilder).build();
 
             scheduler.scheduleJob(jobDetail,trigger);
+            //暂停
+            scheduler.pauseJob(JobKey.jobKey(quartzDTO.getJobName(), quartzDTO.getJobGroup()));
             result =true;
         }catch (SchedulerException e){
             logger.error("创建定时任务失败"+ JSON.toJSONString(quartzDTO), e);
@@ -79,14 +83,19 @@ public class QuartzUtilServiceImpl implements QuartzUtilService {
     }
 
     @Override
+    public boolean startQuartzJob(QuartzDTO quartzDTO) {
+        return resumeQuartzJob(quartzDTO);
+    }
+
+    @Override
     public boolean rescheduleJob(QuartzDTO quartzDTO) {
         boolean result = false;
         try{
             Assert.notNull(quartzDTO,"发起定时任务参数不能为空!");
-            Assert.hasText(quartzDTO.getJobClassName(),"发起定时任务[类名称]不能为空!");
-            Assert.hasText(quartzDTO.getJobGroupName(),"发起定时任务[组名称]不能为空!");
+            Assert.hasText(quartzDTO.getJobName(),"发起定时任务[名称]不能为空!");
+            Assert.hasText(quartzDTO.getJobGroup(),"发起定时任务[组名称]不能为空!");
             Assert.hasText(quartzDTO.getCron(),"发起定时任务[Cron表达式]不能为空!");
-            TriggerKey triggerKey = TriggerKey.triggerKey(quartzDTO.getJobClassName(), quartzDTO.getJobGroupName());
+            TriggerKey triggerKey = TriggerKey.triggerKey(quartzDTO.getJobName(), quartzDTO.getJobGroup());
             // 表达式调度构建器
             CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(quartzDTO.getCron());
 
@@ -110,9 +119,9 @@ public class QuartzUtilServiceImpl implements QuartzUtilService {
         boolean result =false;
         try{
             Assert.notNull(quartzDTO,"发起定时任务参数不能为空!");
-            Assert.hasText(quartzDTO.getJobClassName(),"发起定时任务[类名称]不能为空!");
-            Assert.hasText(quartzDTO.getJobGroupName(),"发起定时任务[组名称]不能为空!");
-            scheduler.pauseJob(JobKey.jobKey(quartzDTO.getJobClassName(), quartzDTO.getJobGroupName()));
+            Assert.hasText(quartzDTO.getJobName(),"发起定时任务[名称]不能为空!");
+            Assert.hasText(quartzDTO.getJobGroup(),"发起定时任务[组名称]不能为空!");
+            scheduler.pauseJob(JobKey.jobKey(quartzDTO.getJobName(), quartzDTO.getJobGroup()));
             result = true;
         }catch (SchedulerException e){
             logger.error("暂停定时任务失败:"+ JSON.toJSONString(quartzDTO), e);
@@ -127,9 +136,9 @@ public class QuartzUtilServiceImpl implements QuartzUtilService {
         boolean result =false;
         try{
             Assert.notNull(quartzDTO,"发起定时任务参数不能为空!");
-            Assert.hasText(quartzDTO.getJobClassName(),"发起定时任务[类名称]不能为空!");
-            Assert.hasText(quartzDTO.getJobGroupName(),"发起定时任务[组名称]不能为空!");
-            scheduler.resumeJob(JobKey.jobKey(quartzDTO.getJobClassName(), quartzDTO.getJobGroupName()));
+            Assert.hasText(quartzDTO.getJobName(),"发起定时任务[名称]不能为空!");
+            Assert.hasText(quartzDTO.getJobGroup(),"发起定时任务[组名称]不能为空!");
+            scheduler.resumeJob(JobKey.jobKey(quartzDTO.getJobName(), quartzDTO.getJobGroup()));
             result = true;
         }catch (SchedulerException e){
             logger.error("暂停定时任务失败:"+ JSON.toJSONString(quartzDTO), e);
@@ -143,11 +152,11 @@ public class QuartzUtilServiceImpl implements QuartzUtilService {
         boolean result =false;
         try{
             Assert.notNull(quartzDTO,"发起定时任务参数不能为空!");
-            Assert.hasText(quartzDTO.getJobClassName(),"发起定时任务[类名称]不能为空!");
-            Assert.hasText(quartzDTO.getJobGroupName(),"发起定时任务[组名称]不能为空!");
-            scheduler.pauseTrigger(TriggerKey.triggerKey(quartzDTO.getJobClassName(), quartzDTO.getJobGroupName()));
-            scheduler.unscheduleJob(TriggerKey.triggerKey(quartzDTO.getJobClassName(), quartzDTO.getJobGroupName()));
-            scheduler.deleteJob(JobKey.jobKey(quartzDTO.getJobClassName(), quartzDTO.getJobGroupName()));
+            Assert.hasText(quartzDTO.getJobName(),"发起定时任务[名称]不能为空!");
+            Assert.hasText(quartzDTO.getJobGroup(),"发起定时任务[组名称]不能为空!");
+            scheduler.pauseTrigger(TriggerKey.triggerKey(quartzDTO.getJobName(), quartzDTO.getJobGroup()));
+            scheduler.unscheduleJob(TriggerKey.triggerKey(quartzDTO.getJobName(), quartzDTO.getJobGroup()));
+            scheduler.deleteJob(JobKey.jobKey(quartzDTO.getJobClassName(), quartzDTO.getJobGroup()));
             result = true;
         }catch (SchedulerException e){
             logger.error("删除定时任务失败:"+ JSON.toJSONString(quartzDTO), e);
@@ -158,8 +167,12 @@ public class QuartzUtilServiceImpl implements QuartzUtilService {
 
     @Override
     public PageResponseDTO findQuartzJobs(QuartzDTO quartzDTO, int pageNum, int pageSize) {
+        QuartzDO quartzDO =new QuartzDO();
+        if(null != quartzDTO){
+            BeanUtils.copyProperties(quartzDTO, quartzDO);
+        }
         Page<QuartzDO> doPage = PageHelper.startPage(pageNum, pageSize);
-        quartzDAO.getJobAndTriggerDetails(quartzDTO.getJobName());
+        quartzDAO.getJobAndTriggerDetails(quartzDO);
         PageResponseDTO result = generateUtil.generatePage(doPage, QuartzDTO.class);
         logger.info("分页查询结果" + JSON.toJSONString(result));
         return result;

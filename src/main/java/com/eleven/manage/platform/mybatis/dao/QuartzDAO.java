@@ -11,5 +11,5 @@ import java.util.List;
  **/
 @Service("quartzDAO")
 public interface QuartzDAO {
-    List<QuartzDO> getJobAndTriggerDetails(String jobName);
+    List<QuartzDO> getJobAndTriggerDetails(QuartzDO quartzDO);
 }

@@ -11,10 +11,6 @@ public class QuartzDTO {
      */
     private String  jobClassName;
     /**
-     * job的组名
-     */
-    private String  jobGroupName;
-    /**
      * cron表达式
      */
     private String  cron;
@@ -34,13 +30,6 @@ public class QuartzDTO {
         this.jobClassName = jobClassName;
     }
 
-    public String getJobGroupName() {
-        return jobGroupName;
-    }
-
-    public void setJobGroupName(String jobGroupName) {
-        this.jobGroupName = jobGroupName;
-    }
 
     public String getCron() {
         return cron;

@@ -49,7 +49,27 @@ public class QuartzController {
         }
         return result;
     }
-
+    /**
+     * 启动job
+     * @param quartzDTO
+     * @return
+     */
+    @PostMapping("/startJob")
+    @ResponseBody
+    public ResponseDTO startJob(@RequestBody QuartzDTO quartzDTO){
+        ResponseDTO result =new ResponseDTO();
+        try{
+            boolean jobResult = quartzUtilService.startQuartzJob(quartzDTO);
+            result.setSuccess(jobResult);
+        }catch(IllegalArgumentException e){
+            result.setSuccess(false);
+            result.setErrorMessage(e.getMessage());
+        }catch(Exception e){
+            logger.error("QuartzController启动定时任务",e);
+            result.setSuccess(false);
+        }
+        return result;
+    }
     /**
      * 更新job
      * @param quartzDTO
@@ -152,9 +172,7 @@ public class QuartzController {
             if(null == quartzDTO){
                 quartzDTO =new QuartzDTO();
             }
-            PageResponseDTO jobResult = quartzUtilService.findQuartzJobs(quartzDTO,pageNum, pageSize);
-            result.setSuccess(true);
-            result.setData(jobResult);
+            result = quartzUtilService.findQuartzJobs(quartzDTO,pageNum, pageSize);
         }catch(IllegalArgumentException e){
             result.setSuccess(false);
             result.setErrorMessage(e.getMessage());
